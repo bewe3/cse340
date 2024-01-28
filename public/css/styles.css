@@ -1,6 +1,237 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Noto+Sans:wght@400;700&display=swap');
+
+:root {
+  --bg-dark: #562c2c;
+  --bg-light: #faeedc;
+  --accent: #087b7b;
+  --accent-rgb: 14, 149, 148;
+  --accent-shade: #026465;
+  --accent-shade-rgb: 10, 75, 77;
+  --text-dark: #1b0e0e;
+  --text-dark-rgb: 27, 14, 14;
+  --text-light: #fffefb;
+  --text-light-rgb: 250, 238, 220;
+
+  --serif: 'Carter One', sans-serif;
+  --sans: 'Noto Sans', sans-serif;
+}
+
+* {
+  color: var(--text-dark);
+  font-family: var(--sans);
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  background: conic-gradient(
+    var(--bg-dark) 90deg,
+    var(--text-dark) 90deg 180deg,
+    var(--bg-dark) 180deg 270deg,
+    var(--text-dark) 270deg
+  );
+  background-repeat: repeat;
+  background-size: 1.7rem 1.7rem;
+  background-position: top left;
+}
+
+body {
+  background-color: var(--bg-light);
+  border-radius: 0.25rem;
+  margin: 2rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+#header {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+#top-header {
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  grid-template-rows: min-content;
+  background-color: var(--bg-light);
+  border-radius: 0.25rem;
+}
+
+header #tools {
+  grid-area: 1 / 3 / 2 / 4;
+  padding: 1rem;
+}
+
+header .siteName {
+  font-size: 3rem;
+  padding: 1rem;
+}
+
+.siteName a {
+  font-family: var(--serif);
+}
+
+header a {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+nav ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  background-color: var(--accent-shade);
+  text-shadow: 1px 1px 1px rgba(var(--text-dark-rgb), 0.8);
+}
+
+nav ul li:hover {
+  background-color: var(--accent);
+  cursor: pointer;
+}
+
+nav ul li {
+  text-align: center;
+  color: var(--text-light);
+}
+
+h1 {
+  font-family: var(--serif);
+  margin: 1rem;
+}
+
+h2 {
+  font-family: var(--serif);
+  margin: 0;
+}
+
+#hero-image {
+  justify-content: center;
+  margin-left: 25%;
+}
+
+#hero-image img {
+  max-height: 35vh;
+  max-width: 630px;
+  width: 85%;
+}
+
+#call {
+  position: absolute;
+  background-color: rgba(var(--accent-shade-rgb), 0.7);
+  padding: 1rem;
+  max-width: 175px;
+  float: none;
+  left: 4rem;
+  text-shadow: 2px 2px 2px rgba(var(--text-dark-rgb), 0.8);
+  border-radius: 0.25rem;
+}
+
+#call h2,
+#call li {
+  color: var(--text-light);
+}
+
+#call ul {
+  padding: 0;
+  list-style: none;
+}
+
+#hero-image button {
+  background-color: var(--accent);
+  border-radius: 0.25rem;
+  border-color: var(--accent-shade);
+  color: var(--text-light);
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  width: 100%;
+  text-shadow: 1px 1px 1px rgba(var(--text-dark-rgb), 0.8);
+}
+
+#hero-image button:hover {
+  cursor: pointer;
+}
+
+#reviews ul {
+  list-style-type: '⌘  ';
+}
+
+#reviews .rating {
+  font-family: var(--serif);
+}
+
+#rest {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#upgrade-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background-color: var(--accent-shade);
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.upgrade-link {
+  background-color: var(--accent);
+  border-radius: 0.25rem;
+  color: var(--text-light);
+  padding: 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  width: 100%;
+  white-space: nowrap;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px rgba(var(--text-dark-rgb), 0.8);
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    margin: 1rem;
+  }
+  #rest {
+    margin-top: 6rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content;
+  }
+
+  #reviews {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  #upgrades {
+    grid-area: 2 / 1 / 2 / 2;
+  }
 }
