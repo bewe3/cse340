@@ -10,6 +10,8 @@ const env = require('dotenv').config();
 const app = express();
 const static = require('./routes/static');
 const expressLayouts = require('express-ejs-layouts');
+const baseController = require('./controllers/baseController');
+const inventoryRoute = require('./routes/inventoryRoute');
 
 /* ***********************
  * View Engine and Templates
@@ -31,9 +33,10 @@ const port = process.env.PORT;
 const host = process.env.HOST;
 
 // Index route
-app.get('/', function (req, res) {
-  res.render('index', { title: 'Home' });
-});
+app.get('/', baseController.buildHome);
+
+// Inventory routes
+app.use('/inv', inventoryRoute);
 
 /* ***********************
  * Log statement to confirm server operation

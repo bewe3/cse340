@@ -86,7 +86,7 @@ header a {
 
 nav ul {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   list-style: none;
   margin: 0;
   padding: 0.5rem;
@@ -101,7 +101,12 @@ nav ul li:hover {
 
 nav ul li {
   text-align: center;
-  color: var(--text-light);
+  padding: 1rem;
+}
+
+nav ul li a {
+  color: var(--text-light) !important;
+  text-decoration: none;
 }
 
 h1 {
@@ -215,6 +220,58 @@ h2 {
   white-space: nowrap;
   cursor: pointer;
   text-shadow: 1px 1px 1px rgba(var(--text-dark-rgb), 0.8);
+}
+
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  list-style-type: none;
+  padding: 0;
+}
+
+#inv-display li {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#inv-display li img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 1/0.7;
+}
+
+.namePrice {
+  padding: 10px;
+}
+
+.namePrice h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.namePrice h2 a {
+  font-family: var(--serif);
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.namePrice span {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: var(--sans);
+  font-size: 1.5rem;
+}
+
+.notice {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #f00;
 }
 
 @media only screen and (max-width: 600px) {
