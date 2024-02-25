@@ -78,4 +78,35 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
+// vehicle details
+Util.buildVehicleDetail = function (vehicle) {
+  let html = `<div class="vehicle-detail-container">`;
+  html += `<div class="vehicle-detail-image">`;
+  html += `<img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}" />`;
+  html += `</div>`;
+  html += `<div class="vehicle-detail-info">`;
+  html += `<h2>$${new Intl.NumberFormat('en-US').format(
+    vehicle.inv_price
+  )}</h2>`;
+  html += `<p>${vehicle.inv_description}</p>`;
+  html += `<ul>`;
+  html += `<li><strong>Year:</strong> ${vehicle.inv_year}</li>`;
+  html += `<li><strong>Mileage:</strong> ${new Intl.NumberFormat(
+    'en-US'
+  ).format(vehicle.inv_miles)}</li>`;
+  html += `<li><strong>Color:</strong> ${vehicle.inv_color}</li>`;
+  html += `</ul>`;
+  html += `</div>`;
+  html += `</div>`;
+  return html;
+};
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
+
 module.exports = Util;
