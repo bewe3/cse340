@@ -111,7 +111,7 @@ nav ul li a {
 
 h1 {
   font-family: var(--serif);
-  margin: 1rem;
+  margin: 1rem 0rem;
 }
 
 h2 {
@@ -312,6 +312,41 @@ h2 {
 
 .vehicle-detail-info ul li {
   margin-bottom: 10px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+button {
+  max-width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: var(--accent);
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: var(--accent-shade);
+}
+
+.notice {
+  list-style: none;
 }
 
 /* Media Query for smaller screens */
