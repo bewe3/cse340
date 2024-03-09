@@ -78,7 +78,9 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
-// vehicle details
+/* **************************************
+ * Build the vehicle details view HTML
+ * ************************************ */
 Util.buildVehicleDetail = function (vehicle) {
   let html = `<div class="vehicle-detail-container">`;
   html += `<div class="vehicle-detail-image">`;
@@ -99,6 +101,18 @@ Util.buildVehicleDetail = function (vehicle) {
   html += `</div>`;
   html += `</div>`;
   return html;
+};
+
+/* **************************************
+ * Build classification dropdown options
+ * ************************************ */
+Util.buildClassificationDropdown = async function () {
+  let classifications = await invModel.getClassifications();
+  let dropdownOptions = '';
+  classifications.rows.forEach((classification) => {
+    dropdownOptions += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
+  });
+  return dropdownOptions;
 };
 
 /* ****************************************

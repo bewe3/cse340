@@ -42,8 +42,65 @@ async function getVehicleById(inv_id) {
   }
 }
 
+/* ***************************
+ *  Insert new classification
+ * ************************** */
+async function insertClassification(classification_name) {
+  try {
+    const data = await pool.query(
+      'INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *',
+      [classification_name]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.error('insertClassification error ' + error);
+    throw error;
+  }
+}
+
+/* ***************************
+ * Insert new inventory into the database
+ * ************************** */
+async function insertInventory(
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const data = await pool.query(
+      'INSERT INTO inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+      [
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description || '',
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id,
+      ]
+    );
+    console.error('insertInventory result = ' + data);
+    return data.rows[0];
+  } catch (error) {
+    console.error('insertInventory error ' + error);
+    throw error;
+  }
+}
+
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getVehicleById,
+  insertClassification,
+  insertInventory,
 };
