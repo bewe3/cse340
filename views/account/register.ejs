@@ -11,9 +11,9 @@
 <% } %>
 <form action="/account/register" method="POST">
   <label for="account_firstname">First Name:</label>
-  <input type="text" id="firstName" name="account_firstname" required /><br />
+  <input type="text" id="firstName" name="account_firstname" required value="<%= locals.account_firstname %>"/><br />
   <label for="account_lastname">Last Name:</label>
-  <input type="text" id="lastName" name="account_lastname" required /><br />
+  <input type="text" id="lastName" name="account_lastname" required value="<%= locals.account_lastname %>"/><br />
   <label for="account_email">Email:</label>
   <input
     type="email"
@@ -21,6 +21,7 @@
     name="account_email"
     pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
     required
+    value="<%= locals.account_email %>"
   /><br />
   <label for="account_password">Password:</label>
   <div class="password-container">

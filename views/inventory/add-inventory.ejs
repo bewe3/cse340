@@ -3,10 +3,15 @@
 <% } else { res.redirect('/') } %> <%- messages() %>
 
 <form action="/inv/add-inventory" method="POST">
-  <label for="classification_id">Classification:</label>
-  <select id="classification_id" name="classification_id" required>
-    <%- dropdownOptions %></select
-  ><br />
+  <label for="classificationList">Classification:</label>
+  <select id="classificationList" name="classification_id">
+    <% classificationSelect.forEach(classification => { %>
+    <option value="<%= classification.classification_id %>">
+      <%= classification.classification_name %>
+    </option>
+    <% }) %>
+  </select>
+  <br />
 
   <label for="inv_make">Make:</label>
   <input type="text" id="inv_make" name="inv_make" required /><br />
@@ -56,23 +61,3 @@
 
   <button type="submit">Add Inventory</button>
 </form>
-
-<script>
-  document.querySelector('form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    console.log('Form values:', {
-      classification_id: document.getElementById('classification_id').value,
-      inv_make: document.getElementById('inv_make').value,
-      inv_model: document.getElementById('inv_model').value,
-      inv_image: document.getElementById('inv_image').value,
-      inv_thumbnail: document.getElementById('inv_thumbnail').value,
-      inv_price: document.getElementById('inv_price').value,
-      inv_year: document.getElementById('inv_year').value,
-      inv_miles: document.getElementById('inv_miles').value,
-      inv_color: document.getElementById('inv_color').value,
-      inv_description: document.getElementById('inv_description').value,
-    });
-    // Uncomment the following line to submit the form
-    this.submit();
-  });
-</script>

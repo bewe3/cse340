@@ -1,5 +1,7 @@
 const invModel = require('../models/inventory-model');
 const Util = {};
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -108,10 +110,19 @@ Util.buildVehicleDetail = function (vehicle) {
  * ************************************ */
 Util.buildClassificationDropdown = async function () {
   let classifications = await invModel.getClassifications();
-  let dropdownOptions = '';
-  classifications.rows.forEach((classification) => {
-    dropdownOptions += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
-  });
+  // i added a blank option in the beginning of the dropdown list just to make it a little more user friendly
+  let dropdownOptions = [
+    {
+      classification_id: '',
+      classification_name: 'Click to select',
+    },
+  ];
+  dropdownOptions.push(
+    ...classifications.rows.map((classification) => ({
+      classification_id: classification.classification_id,
+      classification_name: classification.classification_name,
+    }))
+  );
   return dropdownOptions;
 };
 
@@ -122,5 +133,51 @@ Util.buildClassificationDropdown = async function () {
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
+
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash('Please log in');
+          res.clearCookie('jwt');
+          return res.redirect('/account/login');
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash('notice', 'Please log in.');
+    return res.redirect('/account/login');
+  }
+};
+
+Util.checkClearance = (req, res, next) => {
+  const accountType = res.locals.accountData.account_type;
+  if (accountType !== 'Admin' && accountType !== 'Employee') {
+    req.flash('You do not have permission to access this page.');
+    return res.redirect('/account/login');
+  } else {
+    next();
+  }
+};
 
 module.exports = Util;

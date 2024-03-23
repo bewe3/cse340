@@ -1,11 +1,12 @@
 const utilities = require('.');
 const { body, validationResult } = require('express-validator');
 const validate = {};
+const accountModel = require('../models/account-model');
 
 /*  **********************************
  *  Registration Data Validation Rules
  * ********************************* */
-validate.registationRules = () => {
+validate.registrationRules = () => {
   return [
     // firstname is required and must be string
     body('account_firstname')
@@ -24,7 +25,15 @@ validate.registationRules = () => {
       .trim()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
-      .withMessage('A valid email is required.'),
+      .withMessage('A valid email is required.')
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(
+          account_email
+        );
+        if (emailExists) {
+          throw new Error('Email exists. Please log in or use different email');
+        }
+      }),
 
     // password is required and must be strong password
     body('account_password')
@@ -60,6 +69,46 @@ validate.checkRegData = async (req, res, next) => {
     return;
   }
   next();
+};
+
+/*  **********************************
+ *  Login Data Validation Rules
+ * ********************************* */
+
+validate.loginRules = () => {
+  console.log('loginRules called');
+  return [
+    body('account_email')
+      .trim()
+      .isEmail()
+      .withMessage('A valid email is required.'),
+
+    body('account_password')
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage('Password is required.'),
+  ];
+};
+
+/* **********************************
+ * Login Data Validation
+ * ********************************* */
+validate.checkLoginData = async (req, res, next) => {
+  console.log('checkLoginData called');
+  const { account_email, account_password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render('account/login', {
+      errors: errors.array(),
+      account_email: account_email,
+      title: 'Login',
+      nav,
+    });
+  } else {
+    req.loginData = { account_email, account_password };
+    next();
+  }
 };
 
 module.exports = validate;

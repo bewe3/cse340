@@ -17,6 +17,7 @@ const session = require('express-session');
 const pool = require('./database/');
 const accountRoute = require('./routes/accountRoute');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 /* ***********************
  * Middleware
@@ -33,6 +34,12 @@ app.use(
     name: 'sessionId',
   })
 );
+
+// Cookie Parser
+app.use(cookieParser());
+
+// Middleware for JWT
+app.use(utilities.checkJWTToken)
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
@@ -83,7 +90,7 @@ app.use(async (req, res, next) => {
   next({
     status: 404,
     message:
-      'Follow the advice of Scar from the Lion King: <br><br> <em>"Run. Run away, and never return."</em>',
+      'Follow the advice of Scar from the Lion King: "Run. Run away, and never return."',
   });
 });
 

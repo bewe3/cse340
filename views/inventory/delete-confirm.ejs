@@ -1,0 +1,51 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else { res.redirect('/') } %> <%- messages() %>
+
+<p>Confirm Deletion - <strong>This deletion is permanent!</strong></p>
+
+<form action="/inv/delete-confirm" method="POST" id="deleteForm">
+  <label for="inv_make">Make:</label>
+  <input
+    type="text"
+    id="inv_make"
+    name="inv_make"
+    value="<%= inv_make %>"
+    readonly
+  /><br />
+
+  <label for="inv_model">Model:</label>
+  <input
+    type="text"
+    id="inv_model"
+    name="inv_model"
+    value="<%= inv_model %>"
+    readonly
+  /><br />
+
+  <label for="inv_price">Price:</label>
+  <input
+    type="text"
+    id="inv_price"
+    name="inv_price"
+    value="<%= inv_price %>"
+    readonly
+  /><br />
+
+  <label for="inv_year">Year:</label>
+  <input
+    type="text"
+    id="inv_year"
+    name="inv_year"
+    value="<%= inv_year %>"
+    readonly
+  /><br />
+
+  <button type="submit">Delete Inventory</button>
+
+  <!-- if there is an error for missing closing tag, it's here:
+  <input type="hidden" name="inv_id" <% if(locals.inv_id) { %>
+  value="<%=locals.inv_id %>" <% } %>> -->
+  <input type="hidden" name="inv_id" <% if(locals.inv_id) { %>
+  value="<%=locals.inv_id %>" <% } %>>
+</form>

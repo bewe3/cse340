@@ -68,6 +68,7 @@ footer {
 header #tools {
   grid-area: 1 / 3 / 2 / 4;
   padding: 1rem;
+  text-align: right;
 }
 
 header .siteName {
@@ -364,6 +365,72 @@ input:valid,
 select:valid,
 textarea:valid {
   border: 2px solid darkgreen;
+}
+
+/* dropdown */
+
+#classificationList {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 20px 8px 8px;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333333;
+  cursor: pointer;
+}
+
+#classificationList:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#classificationList:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+#classificationList option {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333333;
+}
+
+#classificationList option:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* inventory management table */
+
+#inventoryDisplay {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: left;
+  padding: 8px;
+}
+
+#inventoryDisplay tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#inventoryDisplay tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#inventoryDisplay tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#inventoryDisplay a {
+  color: #115511;
+  text-decoration: none;
+}
+
+#inventoryDisplay a:hover {
+  text-decoration: underline;
 }
 
 /* Media Query for smaller screens */
