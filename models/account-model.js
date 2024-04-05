@@ -117,8 +117,8 @@ async function updatePassword(account_id, hashedPassword) {
   const query =
     'UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *';
   const result = await pool.query(query, [hashedPassword, account_id]);
-  console.log('Update result:', result.rows[0]); // Assuming only one row is updated
-  return result.rows[0]; // Return the updated row
+  console.log('Update result:', result.rows[0]);
+  return result.rows[0];
 }
 
 module.exports = {
