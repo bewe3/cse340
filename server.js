@@ -39,7 +39,7 @@ app.use(
 app.use(cookieParser());
 
 // Middleware for JWT
-app.use(utilities.checkJWTToken)
+app.use(utilities.checkJWTToken);
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
@@ -89,8 +89,7 @@ app.get(
 app.use(async (req, res, next) => {
   next({
     status: 404,
-    message:
-      'Follow the advice of Scar from the Lion King: "Run. Run away, and never return."',
+    message: 'Not quite my tempo.',
   });
 });
 

@@ -334,4 +334,20 @@ invCont.removeInventory = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Search inventory view
+ * ************************** */
+invCont.searchInventory = async function (req, res, next) {
+  console.log('searchInventory called');
+  const keyword = req.query.keyword;
+  const data = await invModel.searchInventory(keyword);
+  const grid = await utilities.buildClassificationGrid(data);
+  let nav = await utilities.getNav();
+  res.render('./inventory/search-results', {
+    title: 'Search Results',
+    nav,
+    grid,
+  });
+};
+
 module.exports = invCont;

@@ -147,6 +147,27 @@ async function removeInventory(inv_id) {
   }
 }
 
+/* ***************************
+ *  Search inventory by keyword
+ * ************************** */
+async function searchInventory(keyword) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory AS i 
+       JOIN public.classification AS c 
+       ON i.classification_id = c.classification_id 
+       WHERE LOWER(i.inv_make) LIKE $1 
+       OR LOWER(i.inv_model) LIKE $1 
+       OR LOWER(i.inv_description) LIKE $1 
+       OR LOWER(c.classification_name) LIKE $1`,
+      [`%${keyword.toLowerCase()}%`]
+    );
+    return data.rows;
+  } catch (error) {
+    console.error('searchInventory error ' + error);
+  }
+}
+
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
@@ -155,4 +176,5 @@ module.exports = {
   insertInventory,
   updateInventory,
   removeInventory,
+  searchInventory,
 };

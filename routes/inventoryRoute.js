@@ -93,4 +93,11 @@ router.post(
   utilities.handleErrors(invController.removeInventory)
 );
 
+// Route to search inventory
+router.get('/search', (req, res) => {
+  console.log('Search request received');
+  utilities.handleErrors(invController.searchInventory)(req, res);
+});
+
+
 module.exports = router;
