@@ -113,10 +113,7 @@ async function updateAccount(
 /* **********************
  * Update password
  * ********************* */
-async function updatePassword(account_id, new_password) {
-  console.log('updatePassword function called');
-  const hashedPassword = await bcrypt.hash(new_password, 10);
-  console.log('Hashed password:', hashedPassword);
+async function updatePassword(account_id, hashedPassword) {
   const query =
     'UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *';
   const result = await pool.query(query, [hashedPassword, account_id]);
